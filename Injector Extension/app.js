@@ -22,11 +22,12 @@ if (site.includes("youtube.com")) {
 
     function init() {
         element = document.querySelector('[aria-label="Next video"]');
-        element.click();
+        //element.click();
 
     }
 
     let prevUrl = undefined;
+    let tryCount = 0;
     setInterval(() => {
         const currUrl = window.location.href;
         if (currUrl != prevUrl) {
@@ -40,15 +41,25 @@ if (site.includes("youtube.com")) {
             xmlhttp.setRequestHeader("Content-Type", "application/json");
             xmlhttp.onreadystatechange = callbackFunction(xmlhttp);
             xmlhttp.send(JSON.stringify(data));
-
+            console.log("new page " + currUrl);
+            tryCount = 0;
+        }else {
+            console.log("same page " + currUrl);
+            tryCount++;
+            if (tryCount > 3){
+                window.location = 'https://youtube.com/shorts';
+            }
         }
-    }, 2000);
+    }, 3000);
 
     function callbackFunction(xmlhttp) {
-        element.click();
-    }
-}
+        if(!element){
+            console.log("click null");
+            //window.location = 'https://youtube.com/shorts';
+        }else {
+            console.log("click work");
+            element.click();
+        }
 
-// JS Codes For youtube.com
-if (site.includes("google.com")) {
+    }
 }
