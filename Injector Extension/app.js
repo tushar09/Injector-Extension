@@ -14,71 +14,41 @@ function Create_Custom_Element(tag, attr_tag, attr_name, value) {
     document.body.append(custom_element)
 }
 
-// JS Codes For youtube.com
 if (site.includes("youtube.com")) {
-    /* -------------- */
-    /* Add Custom CSS */
-    /* -------------- */
-    Add_Custom_Style(`
-        @import url("https://fonts.googleapis.com/css?family=Raleway");
+    //alert(window.location.href)
+    window.onload = init;
 
-        * {
-            font-family: "Raleway" !important;
-            color: #00ff40 !important;
+    var element;
+
+    function init() {
+        element = document.querySelector('[aria-label="Next video"]');
+        element.click();
+
+    }
+
+    let prevUrl = undefined;
+    setInterval(() => {
+        const currUrl = window.location.href;
+        if (currUrl != prevUrl) {
+            // URL changed
+            prevUrl = currUrl;
+            let data = {videoId: currUrl.replaceAll("https://www.youtube.com/shorts/", "")};
+            console.log(JSON.stringify(data));
+            var xmlhttp = new XMLHttpRequest();
+            //xmlhttp.open("POST", "http://localhost:8081/api/v1/shorts/insertShorts", false);
+            xmlhttp.open("POST", "https://foxytool.com/api/v1/shorts/insertShorts", false);
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            xmlhttp.onreadystatechange = callbackFunction(xmlhttp);
+            xmlhttp.send(JSON.stringify(data));
+
         }
+    }, 2000);
 
-        ytd-channel-about-metadata-renderer {
-            zoom: 1.6;
-        }
-
-        #meta.ytd-c4-tabbed-header-renderer {
-            zoom: 1.3;
-        }
-
-        #js-custom-element {
-            font-size: 60px;
-            padding: 150px 0;
-            color: #ff0037 !important;
-            background-color: #fffffff2;
-            position: fixed;
-            top: 0;
-            text-align: center;
-            width: 100%;
-            z-index: 999999;
-        }
-
-        .js-custom-element {
-            font-size: 60px;
-            padding: 150px 0;
-            color: #008dff !important;
-            background-color: #fffffff2;
-            position: fixed;
-            bottom: 0;
-            text-align: center;
-            width: 100%;
-            z-index: 999999;
-        }
-    `)
-
-    /* ---------------------- */
-    /* Create Custom Elements */
-    /* ---------------------- */
-    // Create_Custom_Element(
-    //     "div",
-    //     "id",
-    //     "js-custom-element",
-    //     "My Custom JS Element 1"
-    // )
-    // Create_Custom_Element(
-    //     "div",
-    //     "class",
-    //     "js-custom-element",
-    //     "My Custom JS Element 2"
-    // )
+    function callbackFunction(xmlhttp) {
+        element.click();
+    }
 }
 
-// JS Codes For google.com
-if (site.includes("google.com")) { }
-
-// JS Codes For microsoft.com
-if (site.includes("microsoft.com")) { }
+// JS Codes For youtube.com
+if (site.includes("google.com")) {
+}
