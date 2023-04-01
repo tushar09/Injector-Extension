@@ -45,7 +45,13 @@ if (site.includes("youtube.com")) {
             tryCount = 0;
         }else {
             console.log("same page " + currUrl);
+            element = document.querySelector('[aria-label="Next video"]');
             tryCount++;
+            if(!element){
+                element = document.querySelector('[aria-label="Next video"]');
+                console.log("click null " + tryCount);
+                //window.location = 'https://youtube.com/shorts';
+            }
             if (tryCount > 3){
                 window.location = 'https://youtube.com/shorts';
             }
@@ -58,6 +64,7 @@ if (site.includes("youtube.com")) {
             //window.location = 'https://youtube.com/shorts';
         }else {
             console.log("click work");
+            element = document.querySelector('[aria-label="Next video"]');
             element.click();
         }
 
