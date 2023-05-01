@@ -56,7 +56,7 @@ if (site.includes("youtube.com")) {
                 window.location = 'https://youtube.com/shorts';
             }
         }
-    }, 3000);
+    }, 2000);
 
     function callbackFunction(xmlhttp) {
         if(!element){
